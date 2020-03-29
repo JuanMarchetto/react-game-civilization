@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import Map from "./components/map"
-import Resourses from "./components/resourses"
-import Constructions from "./components/constructions"
+import Map from "./components/map";
+import Resourses from "./components/resourses";
+import Constructions from "./components/constructions";
+import axios from "axios";
+const baseURL = "http://localhost:5000/";
 
 class App extends Component {
   state = {
-    resourses:{
+    resourses: {
       gold: 999
     },
-    buildings:[],
-    buildingOptions:[
+    buildings: [],
+    buildingOptions: [
       {
-        type:"house",
-        html:<i class="fas fa-home"></i>
+        type: "house",
+        html: <i class="fas fa-home"></i>
       }
     ]
   };
@@ -23,23 +25,19 @@ class App extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <Resourses
-                resourses={this.state.resourses}
-              />
+              <Resourses resourses={this.state.resourses} />
             </div>
             <div className="col-12">
-              <Map
-                buildings={this.state.buildings}
-              />
+              <Map buildings={this.state.buildings} />
             </div>
           </div>
         </div>
         <div
           className="container-fluid"
-          style={{position: "absolute", bottom: "0"}}
+          style={{ position: "absolute", bottom: "0" }}
         >
           <Constructions
-            buildingOptions= {this.state.buildingOptions}
+            buildingOptions={this.state.buildingOptions}
             OnAddConstruction={this.HandleAddConstruction}
           />
         </div>
@@ -47,18 +45,20 @@ class App extends Component {
     );
   }
 
-  HandleAddConstruction = construcction =>{
-    let newConstrucction={
+  HandleAddConstruction = construcction => {
+    let newConstrucction = {
       type: construcction.type,
-      html:construcction.html,
+      html: construcction.html,
       level: 1,
       id: Date.now()
-    }
+    };
     const buildings = [...this.state.buildings, newConstrucction];
     this.setState({ buildings });
-  }
-
-
+    axios
+      //  .post(baseURL + "users/add", { username: "Juan" })
+      .get(baseURL + "users")
+      .then(res => console.log(res.data));
+  };
 }
 
 export default App;
