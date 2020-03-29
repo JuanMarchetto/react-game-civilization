@@ -4,9 +4,8 @@ const Schema = mongoose.Schema;
 
 const gameSchema = new Schema(
   {
-    type: { type: String, required: true },
-    level: { type: Number, required: true },
-    owner: { type: String, required: true }
+    owner: { type: String, required: true },
+    players: { type: Array, required: true }
   },
   {
     timestamps: true

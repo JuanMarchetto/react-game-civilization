@@ -8,11 +8,11 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const creator = req.body.creator;
+  const owner = req.body.owner;
   const players = req.body.players;
 
   const newGame = new Game({
-    creator,
+    owner,
     players
   });
 
@@ -28,19 +28,11 @@ router.route("/:id").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id").delete((req, res) => {
-  Game.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Game deleted."))
-    .catch(err => res.status(400).json("Error: " + err));
-});
-
 router.route("/update/:id").post((req, res) => {
   Game.findById(req.params.id)
     .then(game => {
-      game.type = req.body.type;
-      game.level = Number(req.body.level);
       game.owner = req.body.owner;
-      game.game = req.body.game;
+      game.players = req.body.players;
       game
         .save()
         .then(() => res.json("Game updated."))

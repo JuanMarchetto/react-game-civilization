@@ -32,12 +32,6 @@ router.route("/:id").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id").delete((req, res) => {
-  Building.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Building deleted."))
-    .catch(err => res.status(400).json("Error: " + err));
-});
-
 router.route("/update/:id").post((req, res) => {
   Building.findById(req.params.id)
     .then(building => {
