@@ -1,1 +1,1 @@
-un juego
+A civilization game made with React
